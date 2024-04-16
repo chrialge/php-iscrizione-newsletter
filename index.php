@@ -4,16 +4,19 @@ include __DIR__ . '/function.php';
 $email = $_GET['email'];
 
 if (isset($email)) {
+    var_dump($email);
     // var_dump($email);
     $response = checkEmail($email);
     // var_dump($response);
     $message = generateAlertMessage($response);
     // var_dump($message);
-    session_start();
-    $_SESSION['message'] = $message;
-    // var_dump($_SESSION);
-    header('Location: ./thanYou.php');
-};
+    if ($response == true) {
+        session_start();
+        $_SESSION['message'] = $message;
+        // var_dump($_SESSION);
+        header('Location: ./thanYou.php');
+    }
+}
 
 
 ?>
@@ -26,10 +29,28 @@ include_once __DIR__ . './assets/layout/header.php'
 
 
     <?php if (isset($email)) : ?>
-        <div class="position-fixed alert-dismissible fade show alert alert-<?= $message['class'] ?>" role="alert" style="top: 80px; left: 60px; z-index: 2;">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            <strong><?= $message['alert'] ?></strong>
-        </div>
+
+        <?php if (strlen($email) == 0 || str_contains($email, ' ')) : ?>
+
+            <div class="container-fluid d-flex justify-content-center align-items-center position-absolute top-0">
+                <div class="position-fixed alert-dismissible fade show alert alert-danger" role="alert" style="top: 80px; left: 60px; z-index: 2; width: calc(100% - 120px); height: calc(100% - 160px); ">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <div class="text d-flex justify-content-center align-items-center h-100 flex-column">
+                        <h1>❌</h1>
+                        <h1 class="text-center">Don't value reconized, give it up email</h1>
+                    </div>
+
+                </div>
+            </div>
+
+        <?php else : ?>
+            <div class="position-fixed alert-dismissible fade show alert alert-<?= $message['class'] ?>" role="alert" style="top: 80px; left: 60px; z-index: 2;">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong><?= $message['alert'] ?></strong>
+            </div>
+        <?php endif; ?>
+
+
     <?php endif; ?>
 
     <section id="jumbotron" style="background-image: url('./assets/img/sfondo.jpg'); height: 500px;">
