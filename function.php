@@ -1,6 +1,6 @@
 <?php
 
-var_dump('ciao');
+// var_dump('ciao');
 
 function checkEmail($email)
 {
@@ -14,7 +14,7 @@ function checkEmail($email)
 
 function generateAlertMessage($response)
 {
-    var_dump($response);
+    // var_dump($response);
     if ($response == true) {
         return [
             'status' => 'correct',
