@@ -1,3 +1,49 @@
+<?php
+var_dump($_GET);
+$email = $_GET['email'];
+
+if (isset($email)) {
+    var_dump($email);
+
+    $response = checkEmail($email);
+    var_dump($response);
+    $message = generateAlertMessage($response);
+    var_dump($message);
+    // if (str_contains($email, '@') && str_contains($email, '.')) {
+    //     return true;
+    // } else {
+    //     return false;
+    // }
+};
+
+function checkEmail($email)
+{
+    if (str_contains($email, '@') && str_contains($email, '.')) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+
+function generateAlertMessage($response)
+{
+    var_dump($response);
+    if ($response == true) {
+        return [
+            'status' => 'correct',
+            'alert' => 'Success! your are subscribe'
+        ];
+    }
+    return [
+        'status' => 'incorrect',
+        'alert' => 'Failed! your email is incorrect'
+    ];
+}
+
+?>
+
+
 <!doctype html>
 <html lang="en">
 
@@ -18,7 +64,23 @@
     <main>
         <div class="container">
 
+            <?php if (isset($email)) : ?>
+                <div class="alert alert-primary" role="alert">
+                    <strong><?= $message['alert'] ?></strong>
+                </div>
+            <?php endif; ?>
+
             <section id="newsletter">
+                <h3>Newsletter</h3>
+                <form action="" method="get">
+                    <div class="mb-3">
+                        <label for="" class="form-label">Email</label>
+                        <input type="text" class="form-control" name="email" id="" aria-describedby="emailHelpId" placeholder="abc@mail.com" />
+                        <small id="emailHelpId" class="form-text text-muted">Type you email</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </form>
+
 
             </section>
         </div>
