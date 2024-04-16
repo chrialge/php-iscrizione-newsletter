@@ -20,11 +20,14 @@ function generateAlertMessage($response)
             'status' => 'correct',
             'alert' => 'Success! your are subscribe',
             'class' => 'success',
+            'symbol' => '👍',
         ];
     }
     return [
         'status' => 'incorrect',
         'alert' => 'Failed! your email is incorrect',
         'class' => 'danger',
+        'symbol' => '👎',
+
     ];
 }
