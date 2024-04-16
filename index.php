@@ -1,45 +1,17 @@
 <?php
-var_dump($_GET);
+include __DIR__ . '/function.php';
+// var_dump($_GET);
 $email = $_GET['email'];
 
 if (isset($email)) {
-    var_dump($email);
-
+    // var_dump($email);
     $response = checkEmail($email);
-    var_dump($response);
+    // var_dump($response);
     $message = generateAlertMessage($response);
-    var_dump($message);
-    // if (str_contains($email, '@') && str_contains($email, '.')) {
-    //     return true;
-    // } else {
-    //     return false;
-    // }
-};
-
-function checkEmail($email)
-{
-    if (str_contains($email, '@') && str_contains($email, '.')) {
-        return true;
-    } else {
-        return false;
-    }
+    // var_dump($message);
 };
 
 
-function generateAlertMessage($response)
-{
-    var_dump($response);
-    if ($response == true) {
-        return [
-            'status' => 'correct',
-            'alert' => 'Success! your are subscribe'
-        ];
-    }
-    return [
-        'status' => 'incorrect',
-        'alert' => 'Failed! your email is incorrect'
-    ];
-}
 
 ?>
 
@@ -65,7 +37,7 @@ function generateAlertMessage($response)
         <div class="container">
 
             <?php if (isset($email)) : ?>
-                <div class="alert alert-primary" role="alert">
+                <div class="alert alert-<?= $message['class'] ?>" role="alert">
                     <strong><?= $message['alert'] ?></strong>
                 </div>
             <?php endif; ?>
